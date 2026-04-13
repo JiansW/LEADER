@@ -3,3 +3,5 @@
 <img width="385" alt="Cumulative distribution" src="https://github.com/user-attachments/assets/60663074-42a7-4e94-92df-a776b30f809a" />
 
 Source code will be released soon.
+
+<meta name="google-site-verification" content="4Bwt-QVJtvLkcTAg_9FQNUby72hx5xIYKAwrV1gOcIE" />
