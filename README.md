@@ -4,4 +4,3 @@
 
 Source code will be released soon.
 
-<meta name="google-site-verification" content="kErKTrR_uOTFWwy9zgk-RXzepKDcjTk3HTlxc4avfwE" />
