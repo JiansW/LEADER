@@ -7,7 +7,7 @@ LEADER is a robust LiDAR-based relocalization framework that learns reliable loc
 ## 🎥 Demo
 
 <p align="center">
-  <a href="assets/comparison.mp4">▶ Watch Demo Video</a>
+  <img src="assets/comparison.gif" width="480" alt="LEADER Demo" />
 </p>
 
 ## 📊 Results
@@ -70,7 +70,7 @@ NCLT/
 Train seqs: `2012-01-22`, `2012-02-02`, `2012-02-18`, `2012-05-11`  
 Test seqs: `2012-02-12`, `2012-02-19`, `2012-03-31`, `2012-05-26`
 
-**Enhanced Oxford (Quality-enhanced)** (`<dataset_folder>/Oxford/`):
+**Oxford (Quality-enhanced)** (`<dataset_folder>/Oxford/`):
 
 ```
 Oxford/
