@@ -17,7 +17,6 @@ import torch.nn.functional as F
 import matplotlib
 import open3d as o3d
 from tqdm import tqdm
-from torch.profiler import profile, record_function, ProfilerActivity
 from utils.pose_util import estimate_poses
 import transforms3d.quaternions as txq
 
@@ -52,8 +51,6 @@ def get_args(is_main_process=True):
                         help='Batch Size during validating [default: 80]')
     parser.add_argument('--max_epoch', type=int, default=50,
                         help='Epoch to run [default: 100]')
-    parser.add_argument('--max_encoder_epoch', type=int, default=100,
-                        help='Epoch to run encoder [default: 30]')
     parser.add_argument('--init_learning_rate', type=float, default=0.001,
                         help='Initial learning rate [default: 0.001]')
     parser.add_argument("--decay_epoch", type=float, default=1,
@@ -65,7 +62,7 @@ def get_args(is_main_process=True):
     parser.add_argument('--log_dir', default='',
                         help='Log dir [default: log]')
     parser.add_argument('--dataset_folder', default='',
-                        help='Our Dataset Folder') # /ava16t/lw/Data
+                        help='Our Dataset Folder')
     parser.add_argument('--dataset', default='NCLT',
                         help='Oxford or NCLT')
     parser.add_argument('--num_workers', type=int, default=8,
@@ -78,10 +75,6 @@ def get_args(is_main_process=True):
                         help='max range of points, default: Oxford 100, NCLT 100')
     parser.add_argument('--resume_model', type=str, default='',
                         help='If present, restore checkpoint and resume training')
-    parser.add_argument('--profile', action='store_true', default=False,
-                        help='Enable torch profiler and export chrome trace')
-    parser.add_argument('--profile_out', type=str, default='',
-                        help='Chrome trace output path (default: log_dir/trace_epoch{N}.json)')
 
     FLAGS = parser.parse_args()
     args = vars(FLAGS)
@@ -251,7 +244,7 @@ def train():
                    feat_channels=512, 
                    width=FLAGS.horizontal_res)
     loss_fn = TRR(scale=10.0)
-    ransac = Matcher(inlier_threshold=3.0,
+    ransac = Matcher(inlier_threshold=2.0,
                      d_thre=2,
                      num_iterations=10,
                      ratio=0.15,
@@ -325,11 +318,6 @@ def process_one_epoch(
     loss_sum = 0
     center_t = torch.tensor(process_info['center_t'], dtype=torch.float32, device=device)
 
-    # -- profile: first training epoch, record a few batches --
-    if FLAGS.profile and train and process_info['epoch'] == 0:
-        prof = profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], with_stack=True)
-        prof.start()
-
     pbar = tqdm(
         total=len(data_loader),
         desc='Epoch %d %s' % (process_info['epoch'], 'train' if train else 'val '),
@@ -387,15 +375,6 @@ def process_one_epoch(
             optimizer.step()
             end = time.time()
             process_info['train_iter'] += 1
-            # profile: collect 5 batches then export
-            if FLAGS.profile and train and process_info['epoch'] == 0:
-                if step < 5:
-                    prof.step()
-                elif step == 5:
-                    prof.stop()
-                    trace_path = FLAGS.profile_out or os.path.join(FLAGS.log_dir, 'trace.json')
-                    prof.export_chrome_trace(trace_path)
-                    logger(f'Chrome trace saved to: {trace_path}')
             if accelerator.is_local_main_process:
                 summary_writer.add_scalar('Loss_t', loss_t.mean().cpu().item(), process_info['train_iter'])
             pbar.set_postfix({'loss': f'{loss_t.mean().item():.4f}'})
