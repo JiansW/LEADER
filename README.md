@@ -106,7 +106,7 @@ Logs and checkpoints are saved to `log_{dataset}/` by default.
 
 ### Evaluation
 
-Download pretrained checkpoints (links below) and run:
+Download pretrained checkpoints and run:
 
 ```bash
 # Evaluate on NCLT
@@ -118,7 +118,12 @@ python run_mink.py --dataset Oxford --mode test --dataset_folder /path/to/datase
 
 ### Pretrained Models
 
-Pretrained checkpoints for NCLT and Oxford RobotCar will be released soon.
+| Dataset | Checkpoint | Recall@1 | Trans. Err. (m) | Rot. Err. (°) |
+|---------|-----------|----------|-----------------|---------------|
+| NCLT | [nclt_checkpoint_epoch49.tar.gz](https://github.com/JiansW/LEADER/releases/download/v1.0/nclt_checkpoint_epoch49.tar.gz) | 98.4 | 0.31 | 1.81 |
+| Enhanced Oxford | [oxford_checkpoint_epoch49.tar.gz](https://github.com/JiansW/LEADER/releases/download/v1.0/oxford_checkpoint_epoch49.tar.gz) | 84.1 | 0.63 | 1.11 |
+
+> Extract checkpoints and pass the extracted directory to `--resume_model`.
 
 ## 📜 Citation
 
