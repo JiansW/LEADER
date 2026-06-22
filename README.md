@@ -1,6 +1,6 @@
 # LEADER: Learning Reliable Local-to-Global Correspondences for LiDAR Relocalization
 
-**CVPR 2026 Highlight** | [📄 Paper](https://openaccess.thecvf.com/content/CVPR2026/papers/Wu_LEADER_Learning_Reliable_Local-to-Global_Correspondences_for_LiDAR_Relocalization_CVPR_2026_paper.pdf) | [arXiv](https://arxiv.org/abs/2604.11355) | [🖼 Poster](https://cvpr.thecvf.com/virtual/2026/poster/39248)
+**CVPR 2026 Highlight** | [📄 Paper](https://openaccess.thecvf.com/content/CVPR2026/papers/Wu_LEADER_Learning_Reliable_Local-to-Global_Correspondences_for_LiDAR_Relocalization_CVPR_2026_paper.pdf) | [📄 arXiv](https://arxiv.org/abs/2604.11355) | [🖼 Poster](https://cvpr.thecvf.com/virtual/2026/poster/39248) | [🤗 HF Paper](https://huggingface.co/papers/2604.11355)
 
 LEADER is a robust LiDAR-based relocalization framework that learns reliable local-to-global point correspondences. It features a **Robust Projection-based Geometric Encoder** to capture multi-scale geometric features, and a **Truncated Relative Reliability (TRR) loss** to model point-wise ambiguity and mitigate unreliable predictions. Extensive experiments on Oxford RobotCar and NCLT datasets demonstrate that LEADER outperforms state-of-the-art methods, achieving **24.1%** and **73.9%** relative reductions in position error, respectively.
 
@@ -118,12 +118,10 @@ python run_mink.py --dataset Oxford --mode test --dataset_folder /path/to/datase
 
 ### Pretrained Models
 
-| Dataset | Checkpoint | Recall@1 | Trans. Err. (m) | Rot. Err. (°) |
-|---------|-----------|----------|-----------------|---------------|
-| NCLT | [nclt_checkpoint_epoch49.tar.gz](https://github.com/JiansW/LEADER/releases/download/v1.0/nclt_checkpoint_epoch49.tar.gz) | 98.4 | 0.31 | 1.81 |
-| Enhanced Oxford | [oxford_checkpoint_epoch49.tar.gz](https://github.com/JiansW/LEADER/releases/download/v1.0/oxford_checkpoint_epoch49.tar.gz) | 84.1 | 0.63 | 1.11 |
-
-> Extract checkpoints and pass the extracted directory to `--resume_model`.
+| Dataset | GitHub | Hugging Face | Recall@1 | Trans. Err. (m) | Rot. Err. (°) |
+|---------|--------|--------------|----------|-----------------|---------------|
+| NCLT | [Download](https://github.com/JiansW/LEADER/releases/download/v1.0/nclt_checkpoint_epoch49.tar.gz) | [Download](https://huggingface.co/wushing001/LEADER/blob/main/nclt_checkpoint_epoch49.tar.gz) | 98.4 | 0.31 | 1.81 |
+| Enhanced Oxford | [Download](https://github.com/JiansW/LEADER/releases/download/v1.0/oxford_checkpoint_epoch49.tar.gz) | [Download](https://huggingface.co/wushing001/LEADER/blob/main/oxford_checkpoint_epoch49.tar.gz) | 84.1 | 0.63 | 1.11 |
 
 ## 📜 Citation
 
